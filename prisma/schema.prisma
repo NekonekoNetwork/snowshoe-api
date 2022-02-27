@@ -9,30 +9,62 @@ generator client {
 }
 
 datasource db {
-  // provider = "mysql"
-  // url      = env("DATABASE_URL")
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Namespace {
-  id     String   @id @default(uuid())
-  name   String
-  server Server[]
+  id   String @id @default(uuid())
+  name String @unique
+
+  server      Server[]
+  VirtualHost VirtualHost[]
+  // FallbackServers FallbackServers[]
 
   @@map("namespaces")
 }
 
-model Server {
-  id           String         @id @default(uuid())
-  namespace    Namespace      @relation(fields: [namespaceId], references: [id])
-  namespaceId  String
-  name         String
-  address      String
-  port         Int
-  serverStatus ServerStatus[]
+// model FallbackServers {
+//   id          String    @id @default(uuid())
+//   namespace   Namespace @relation(fields: [namespaceId], references: [id])
+//   namespaceId String
+//   server      Server?   @relation(fields: [serverId], references: [id])
+//   serverId    String?
 
+//   fallback         Server @relation(fields: [fallbackServerId], references: [id])
+//   fallbackServerId String
+
+//   @@map("fallback_servers")
+// }
+
+model Server {
+  id          String    @id @default(uuid())
+  namespace   Namespace @relation(fields: [namespaceId], references: [id])
+  namespaceId String
+  name        String
+  address     String
+  port        Int
+
+  motd            String?
+  pingPassthrough PingPassthrough @default(NONE)
+
+  serverStatus ServerStatus[]
+  VirtualHost  VirtualHost[]
+  // FallbackServers FallbackServers[]
+
+  @@unique([namespaceId, name])
   @@map("servers")
+}
+
+enum PingPassthrough {
+  NONE
+  VERSION
+  PLAYER
+  MOTD
+  VERSION_PLAYER
+  VERSION_MOTD
+  PLAYER_MOTD
+  VERSION_PLAYER_MOTD
 }
 
 model ServerStatus {
@@ -40,7 +72,26 @@ model ServerStatus {
   server    Server   @relation(fields: [serverId], references: [id])
   serverId  String
   status    String
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 
   @@map("server_statuses")
+}
+
+model VirtualHost {
+  id      String @id @default(uuid())
+  address String @unique
+
+  // Distinatio
+  type        DestinationType
+  namespace   Namespace       @relation(fields: [namespaceId], references: [id])
+  namespaceId String
+  server      Server?         @relation(fields: [serverId], references: [id])
+  serverId    String?
+
+  @@map("virtual_hosts")
+}
+
+enum DestinationType {
+  NAMESPACE
+  SERVER
 }
