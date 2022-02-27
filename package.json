@@ -14,8 +14,8 @@
     "generate": "run-p db:generate proto:generate",
     "clean": "rimraf ./dist",
     "start": "node ./dist/index.js",
-    "build": "run-s clean tsc",
-    "dev": "nodemon"
+    "build": "run-s clean && tsc",
+    "dev": "nodemon ./src/index.ts"
   },
   "devDependencies": {
     "@types/google-protobuf": "^3.15.5",
