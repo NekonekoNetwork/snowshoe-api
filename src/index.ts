@@ -1,3 +1,7 @@
+import { PrismaClient } from "./generated";
+
+const prisma = new PrismaClient();
+
 async function main() {
     console.log("Hello World!");
 }
@@ -7,5 +11,5 @@ main()
         throw e
     })
     .finally(() => {
-
-    })
+        prisma.$disconnect();
+    });

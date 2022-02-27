@@ -3,6 +3,9 @@
 
 generator client {
   provider = "prisma-client-js"
+  // Yarn 3 + Yarn PnP + Yarn Zeroでうまく動作するように
+  // https://github.com/prisma/prisma/issues/1439
+  output   = "../src/generated"
 }
 
 datasource db {
