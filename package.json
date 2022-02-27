@@ -9,6 +9,7 @@
     "fix": "run-s fix:prettier fix:eslint",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
+    "db:push": "pnpify prisma db push",
     "db:generate": "pnpify prisma generate",
     "proto:generate": "pnpify grpc_tools_node_protoc -I ./protobuf --js_out=import_style=commonjs,binary:./src/generated/proto --grpc_out=grpc_js:./src/generated/proto --ts_out=service=grpc-node,mode=grpc-js:./src/generated/proto ./protobuf/*.proto",
     "generate": "run-p db:generate proto:generate",

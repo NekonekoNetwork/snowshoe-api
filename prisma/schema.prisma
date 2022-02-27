@@ -15,6 +15,32 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Hello {
-  id Int @id @default(autoincrement())
+model Namespace {
+  id     String   @id @default(uuid())
+  name   String
+  server Server[]
+
+  @@map("namespaces")
+}
+
+model Server {
+  id           String         @id @default(uuid())
+  namespace    Namespace      @relation(fields: [namespaceId], references: [id])
+  namespaceId  String
+  name         String
+  address      String
+  port         Int
+  serverStatus ServerStatus[]
+
+  @@map("servers")
+}
+
+model ServerStatus {
+  id        String   @id @default(uuid())
+  server    Server   @relation(fields: [serverId], references: [id])
+  serverId  String
+  status    String
+  updatedAt DateTime
+
+  @@map("server_statuses")
 }
