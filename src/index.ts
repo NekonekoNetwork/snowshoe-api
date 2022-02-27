@@ -10,6 +10,6 @@ main()
     .catch(e => {
         throw e
     })
-    .finally(() => {
-        prisma.$disconnect();
+    .finally(async () => {
+        await prisma.$disconnect();
     });
