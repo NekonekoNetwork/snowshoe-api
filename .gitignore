@@ -151,4 +151,7 @@ src/generated/*/**
 !src/generated/prisma
 !src/generated/proto
 
+# SQLite database file
+*.db
+
 # End of https://www.toptal.com/developers/gitignore/api/node
