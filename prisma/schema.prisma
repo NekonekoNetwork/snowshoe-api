@@ -11,6 +11,9 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+
+  // SQLiteではEnumをサポートしていないので開発環境ではPostgreSQLとかにする
+  // https://www.prisma.io/docs/reference/database-reference/database-features#misc
 }
 
 model Namespace {
