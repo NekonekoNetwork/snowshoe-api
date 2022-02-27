@@ -144,7 +144,11 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-# Generated files from Prisma
-src/generated
+# Generated files
+src/generated/*/**
+!src/generated/
+!src/generated/*/.gitkeep
+!src/generated/prisma
+!src/generated/proto
 
 # End of https://www.toptal.com/developers/gitignore/api/node
