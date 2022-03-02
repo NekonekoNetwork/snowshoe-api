@@ -20,25 +20,12 @@ model Namespace {
   id   String @id @default(uuid())
   name String @unique
 
-  server      Server[]
-  VirtualHost VirtualHost[]
-  // FallbackServers FallbackServers[]
+  server         Server[]
+  VirtualHost    VirtualHost[]
+  FallbackServer FallbackServer[]
 
   @@map("namespaces")
 }
-
-// model FallbackServers {
-//   id          String    @id @default(uuid())
-//   namespace   Namespace @relation(fields: [namespaceId], references: [id])
-//   namespaceId String
-//   server      Server?   @relation(fields: [serverId], references: [id])
-//   serverId    String?
-
-//   fallback         Server @relation(fields: [fallbackServerId], references: [id])
-//   fallbackServerId String
-
-//   @@map("fallback_servers")
-// }
 
 model Server {
   id          String    @id @default(uuid())
@@ -51,9 +38,10 @@ model Server {
   motd            String?
   pingPassthrough PingPassthrough @default(NONE)
 
-  serverStatus ServerStatus[]
-  VirtualHost  VirtualHost[]
-  // FallbackServers FallbackServers[]
+  serverStatus   ServerStatus[]
+  VirtualHost    VirtualHost[]
+  Fallback       Fallback[]
+  FallbackServer FallbackServer[]
 
   @@unique([namespaceId, name])
   @@map("servers")
@@ -68,6 +56,30 @@ enum PingPassthrough {
   VERSION_MOTD
   PLAYER_MOTD
   VERSION_PLAYER_MOTD
+}
+
+model Fallback {
+  server   Server @relation(fields: [serverId], references: [id])
+  serverId String @id @unique
+
+  FallbackServer FallbackServer[]
+
+  @@map("fallback")
+}
+
+model FallbackServer {
+  id          String    @id @default(uuid())
+  namespace   Namespace @relation(fields: [namespaceId], references: [id])
+  namespaceId String
+
+  server   Server? @relation(fields: [serverId], references: [id])
+  serverId String
+
+  fallback   Fallback @relation(fields: [fallbackId], references: [serverId])
+  fallbackId String
+
+  @@unique([namespaceId, serverId, fallbackId])
+  @@map("fallback_servers")
 }
 
 model ServerStatus {
