@@ -181,4 +181,7 @@ src/generated/*/**
 /dist
 /node_modules
 
+# prisma generated
+/src/prisma/generated
+
 # End of https://www.toptal.com/developers/gitignore/api/node

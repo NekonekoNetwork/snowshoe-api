@@ -9,7 +9,7 @@
     "lint:prettier": "prettier --check .",
     "fix": "run-s fix:prettier fix:eslint",
     "fix:eslint": "npm run lint:eslint -- --fix --ignore-path .gitignore",
-    "fix:prettier": "npm run lint:prettier -- --write",
+    "fix:prettier": "npm run lint:prettier -- --write --ignore-path .gitignore",
     "typecheck": "tsc --pretty --noEmit",
     "studio": "pnpify prisma studio",
     "db:push": "pnpify prisma db push",
