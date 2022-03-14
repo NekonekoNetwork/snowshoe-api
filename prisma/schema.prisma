@@ -20,7 +20,7 @@ model Namespace {
   id   String @id @default(uuid())
   name String @unique
 
-  server         Server[]
+  Server         Server[]
   VirtualHost    VirtualHost[]
   FallbackServer FallbackServer[]
 
@@ -31,14 +31,15 @@ model Server {
   id          String    @id @default(uuid())
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
   namespaceId String
-  name        String
-  address     String
-  port        Int
+
+  name    String
+  address String
+  port    Int
 
   motd            String?
   pingPassthrough PingPassthrough @default(NONE)
 
-  serverStatus   ServerStatus[]
+  ServerStatus   ServerStatus[]
   VirtualHost    VirtualHost[]
   Fallback       Fallback[]
   FallbackServer FallbackServer[]
@@ -93,8 +94,8 @@ model ServerStatus {
 }
 
 model VirtualHost {
-  id      String @id @default(uuid())
-  address String @unique
+  id   String @id @default(uuid())
+  name String @unique
 
   // Distinatio
   type        DestinationType
