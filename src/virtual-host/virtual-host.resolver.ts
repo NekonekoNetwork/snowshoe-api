@@ -1,19 +1,19 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateVirtualHostDto } from './virtual-host.dto';
-import { VirtualHost } from './virtual-host.model';
+import { CreateVirtualHostInput } from './virtual-host.dto';
+import { VirtualHostModel } from './virtual-host.model';
 import { VirtualHostService } from './virtual-host.service';
 
-@Resolver(() => VirtualHost)
+@Resolver(() => VirtualHostModel)
 export class VirtualHostResolver {
   constructor(private readonly service: VirtualHostService) { }
 
-  @Query(() => VirtualHost)
-  async virtualHosts(): Promise<VirtualHost[]> {
+  @Query(() => [VirtualHostModel])
+  async virtualHosts(): Promise<VirtualHostModel[]> {
     return this.service.getVirtualHosts();
   }
 
-  @Mutation(() => VirtualHost)
-  async createVirtualHost(@Args('payload') payload: CreateVirtualHostDto): Promise<VirtualHost> {
+  @Mutation(() => VirtualHostModel)
+  async createVirtualHost(@Args('payload') payload: CreateVirtualHostInput): Promise<VirtualHostModel> {
     return this.service.createVirtualHost(payload);
   }
 }
