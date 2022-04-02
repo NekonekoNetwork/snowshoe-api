@@ -20,9 +20,12 @@ model Namespace {
   id   String @id @default(uuid())
   name String @unique
 
-  Server         Server[]
-  VirtualHost    VirtualHost[]
-  FallbackServer FallbackServer[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  servers         Server[]
+  virtualHosts    VirtualHost[]
+  fallbackServers FallbackServer[]
 
   @@map("namespaces")
 }
@@ -39,9 +42,14 @@ model Server {
   motd            String?
   pingPassthrough PingPassthrough @default(NONE)
 
-  ServerStatus   ServerStatus[]
-  VirtualHost    VirtualHost[]
-  Fallback       Fallback[]
+  serverStatus ServerStatus?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+
+  virtualHosts   VirtualHost[]
+  fallback       Fallback[]
   FallbackServer FallbackServer[]
 
   @@unique([namespaceId, name])
@@ -63,7 +71,7 @@ model Fallback {
   server   Server @relation(fields: [serverId], references: [id])
   serverId String @id @unique
 
-  FallbackServer FallbackServer[]
+  fallbackServers FallbackServer[]
 
   @@map("fallback")
 }
@@ -84,25 +92,34 @@ model FallbackServer {
 }
 
 model ServerStatus {
-  id        String   @id @default(uuid())
-  server    Server   @relation(fields: [serverId], references: [id])
-  serverId  String
-  status    String
-  updatedAt DateTime @updatedAt
+  id String @id @default(uuid())
+
+  server   Server @relation(fields: [serverId], references: [id])
+  serverId String @unique
+
+  status String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("server_statuses")
 }
 
 model VirtualHost {
-  id   String @id @default(uuid())
+  id String @id @default(uuid())
+
   name String @unique
 
   // Distinatio
-  type        DestinationType
-  namespace   Namespace       @relation(fields: [namespaceId], references: [id])
+  type DestinationType
+
+  namespace   Namespace @relation(fields: [namespaceId], references: [id])
   namespaceId String
-  server      Server?         @relation(fields: [serverId], references: [id])
+  server      Server?   @relation(fields: [serverId], references: [id])
   serverId    String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("virtual_hosts")
 }
