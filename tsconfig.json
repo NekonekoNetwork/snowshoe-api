@@ -21,6 +21,10 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "paths": {
+      "@app": ["src"],
+      "@app/*": ["src/*"]
+    }
   }
 }
