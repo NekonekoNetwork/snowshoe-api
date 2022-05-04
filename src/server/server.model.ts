@@ -1,6 +1,6 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
-import { PingPassthrough } from '@app/prisma/generated';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { PingPassthrough } from '@prisma/client';
 
 registerEnumType(PingPassthrough, {
   name: 'PingPassthrough',

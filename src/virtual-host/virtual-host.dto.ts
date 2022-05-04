@@ -1,5 +1,5 @@
-import { DestinationType } from '@app/prisma/generated';
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
+import { DestinationType } from '@prisma/client';
 
 registerEnumType(DestinationType, {
   name: 'DestinationType',

@@ -1,7 +1,7 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
-import { DestinationType } from '@app/prisma/generated';
 import { ServerModel } from '@app/server/server.model';
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { DestinationType } from '@prisma/client';
 
 registerEnumType(DestinationType, {
   name: 'DestinationType',
