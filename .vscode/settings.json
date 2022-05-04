@@ -3,7 +3,6 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -14,8 +13,6 @@
     "source.organizeImports",
     "source.fixAll.eslint"
   ],
-  "eslint.nodePath": ".yarn/sdks",
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },

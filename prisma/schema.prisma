@@ -3,17 +3,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  // Yarn 3 + Yarn PnP + Yarn Zeroでうまく動作するように
-  // https://github.com/prisma/prisma/issues/1439#issuecomment-1023884266
-  output   = "../src/prisma/generated"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-
-  // SQLiteではEnumをサポートしていないので開発環境ではPostgreSQLとかにする
-  // https://www.prisma.io/docs/reference/database-reference/database-features#misc
 }
 
 model Namespace {
