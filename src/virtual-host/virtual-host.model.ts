@@ -1,13 +1,11 @@
-import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
-import { NamespaceModel } from "src/namespace/namespace.model";
-import { DestinationType } from "src/prisma/generated";
-import { ServerModel } from "src/server/server.model";
+import { NamespaceModel } from '@app/namespace/namespace.model';
+import { DestinationType } from '@app/prisma/generated';
+import { ServerModel } from '@app/server/server.model';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 registerEnumType(DestinationType, {
   name: 'DestinationType',
 });
-
-export type VirtualHostWithNamespaceAndServer = VirtualHostModel & { namespace: NamespaceModel }
 
 @ObjectType()
 export class VirtualHostModel {
@@ -17,10 +15,10 @@ export class VirtualHostModel {
   name!: string;
 
   @Field(() => DestinationType)
-  type!: DestinationType
+  type!: DestinationType;
 
   @Field(() => NamespaceModel)
-  namespace!: NamespaceModel
-  @Field(() => ServerModel)
-  server?: ServerModel | null;
+  namespace?: NamespaceModel;
+  @Field(() => ServerModel, { nullable: true })
+  server?: ServerModel;
 }

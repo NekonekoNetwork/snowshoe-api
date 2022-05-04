@@ -1,11 +1,11 @@
+import { NamespaceModule } from '@app/namespace/namespace.module';
+import { PrismaModule } from '@app/prisma/prisma.module';
+import { ServerModule } from '@app/server/server.module';
+import { VirtualHostModule } from '@app/virtual-host/virtual-host.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { NamespaceModule } from './namespace/namespace.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { ServerModule } from './server/server.module';
-import { VirtualHostModule } from './virtual-host/virtual-host.module';
 
 @Module({
   imports: [
@@ -21,4 +21,4 @@ import { VirtualHostModule } from './virtual-host/virtual-host.module';
     VirtualHostModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

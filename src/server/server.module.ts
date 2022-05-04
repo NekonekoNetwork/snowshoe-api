@@ -1,9 +1,9 @@
+import { ServerResolver } from '@app/server/server.resolver';
+import { ServerService } from '@app/server/server.service';
 import { Module } from '@nestjs/common';
-import { ServerResolver } from './server.resolver';
-import { ServerService } from './server.service';
 
 @Module({
   providers: [ServerService, ServerResolver],
-  exports: [ServerService]
+  exports: [ServerService],
 })
-export class ServerModule { }
+export class ServerModule {}

@@ -1,16 +1,29 @@
+import type { NamespaceModel } from '@app/namespace/namespace.model';
+import type { PrismaService } from '@app/prisma/prisma.service';
+import type { ServerModel } from '@app/server/server.model';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import type { ServerWithNamespace } from './server.model';
 
 @Injectable()
 export class ServerService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
-  async findServers(): Promise<ServerWithNamespace[]> {
-    return this.prisma.server.findMany({
-      include: {
-        namespace: true
-      }
-    });
+  async findServers(): Promise<ServerModel[]> {
+    return this.prisma.server.findMany();
+  }
+
+  async findNamespace(id: string): Promise<NamespaceModel> {
+    const namespace = await this.prisma.server
+      .findUnique({
+        where: {
+          id,
+        },
+      })
+      .namespace();
+
+    if (!namespace) {
+      throw new Error(`Could not find namespace with id ${id}`);
+    }
+
+    return namespace;
   }
 }

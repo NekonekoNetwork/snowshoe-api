@@ -1,19 +1,17 @@
-import { Field, Int, ObjectType, registerEnumType } from "@nestjs/graphql";
-import { NamespaceModel } from "src/namespace/namespace.model";
-import { PingPassthrough } from "src/prisma/generated";
+import { NamespaceModel } from '@app/namespace/namespace.model';
+import { PingPassthrough } from '@app/prisma/generated';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 registerEnumType(PingPassthrough, {
   name: 'PingPassthrough',
 });
 
-export type ServerWithNamespace = ServerModel & { namespace: NamespaceModel };
-
-@ObjectType()
+@ObjectType('Server')
 export class ServerModel {
   @Field(() => String)
   id!: string;
   @Field(() => NamespaceModel)
-  namespace!: NamespaceModel;
+  namespace?: NamespaceModel;
 
   @Field(() => String)
   name!: string;
@@ -26,5 +24,5 @@ export class ServerModel {
   @Field(() => String, { nullable: true })
   motd?: string | null;
   @Field(() => PingPassthrough)
-  pingPassthrough!: PingPassthrough
+  pingPassthrough!: PingPassthrough;
 }
