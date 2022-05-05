@@ -14,12 +14,14 @@ model Namespace {
   id   String @id @default(uuid())
   name String @unique
 
+  servers      Server[]
+  fallbacks    Fallback[]    @relation("FALLBACKS_NAMESPACE")
+  virtualHosts VirtualHost[]
+
+  fallback Fallback?
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-
-  servers         Server[]
-  virtualHosts    VirtualHost[]
-  fallbackServers FallbackServer[]
 
   @@map("namespaces")
 }
@@ -36,15 +38,14 @@ model Server {
   motd            String?
   pingPassthrough PingPassthrough @default(NONE)
 
+  fallbacks    Fallback[]    @relation("FALLBACKS_SERVER")
   serverStatus ServerStatus?
+  virtualHosts VirtualHost[]
+
+  fallback Fallback?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-
-
-  virtualHosts   VirtualHost[]
-  fallback       Fallback[]
-  FallbackServer FallbackServer[]
 
   @@unique([namespaceId, name])
   @@map("servers")
@@ -62,27 +63,21 @@ enum PingPassthrough {
 }
 
 model Fallback {
-  server   Server @relation(fields: [serverId], references: [id])
-  serverId String @id @unique
+  id String @id @default(uuid())
 
-  fallbackServers FallbackServer[]
-
-  @@map("fallback")
-}
-
-model FallbackServer {
-  id          String    @id @default(uuid())
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
-  namespaceId String
+  namespaceId String    @unique
 
   server   Server? @relation(fields: [serverId], references: [id])
-  serverId String
+  serverId String? @unique
 
-  fallback   Fallback @relation(fields: [fallbackId], references: [serverId])
-  fallbackId String
+  Namespace Namespace[] @relation("FALLBACKS_NAMESPACE")
+  Server    Server[]    @relation("FALLBACKS_SERVER")
 
-  @@unique([namespaceId, serverId, fallbackId])
-  @@map("fallback_servers")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("fallbacks")
 }
 
 model ServerStatus {
