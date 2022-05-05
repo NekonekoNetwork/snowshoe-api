@@ -7,13 +7,13 @@ registerEnumType(DestinationType, {
 
 @InputType()
 export class CreateVirtualHostInput {
-  @Field()
+  @Field(() => String)
   name!: string;
   @Field(() => DestinationType)
   type!: DestinationType;
 
-  @Field()
+  @Field(() => String)
   namespaceId!: string;
-  @Field({ nullable: true })
+  @Field(() => String, { nullable: true })
   serverId?: string;
 }

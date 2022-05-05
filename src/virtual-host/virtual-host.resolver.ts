@@ -1,6 +1,6 @@
-import type { CreateVirtualHostInput } from '@app/virtual-host/virtual-host.dto';
+import { CreateVirtualHostInput } from '@app/virtual-host/virtual-host.dto';
 import { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
-import type { VirtualHostService } from '@app/virtual-host/virtual-host.service';
+import { VirtualHostService } from '@app/virtual-host/virtual-host.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => VirtualHostModel)

@@ -1,9 +1,10 @@
-import type {
+import { FallbackModel } from '@app/fallback/fallback.model';
+import {
   CreateNamespaceInput,
   UpdateNamespaceInput,
 } from '@app/namespace/namespace.dto';
 import { NamespaceModel } from '@app/namespace/namespace.model';
-import type { NamespaceService } from '@app/namespace/namespace.service';
+import { NamespaceService } from '@app/namespace/namespace.service';
 import { ServerModel } from '@app/server/server.model';
 import { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
 import {
@@ -52,6 +53,13 @@ export class NamespaceResolver {
   @ResolveField(() => [ServerModel])
   async servers(@Parent() namespace: NamespaceModel): Promise<ServerModel[]> {
     return this.namespaceService.findServers(namespace.id);
+  }
+
+  @ResolveField(() => [FallbackModel])
+  async fallbacks(
+    @Parent() namespace: NamespaceModel,
+  ): Promise<FallbackModel[]> {
+    return this.namespaceService.findFallbacks(namespace.id);
   }
 
   @ResolveField(() => [VirtualHostModel])

@@ -1,4 +1,4 @@
-import type { PrismaService } from '@app/prisma/prisma.service';
+import { PrismaService } from '@app/prisma/prisma.service';
 import type { CreateVirtualHostInput } from '@app/virtual-host/virtual-host.dto';
 import type { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
 import { Injectable } from '@nestjs/common';

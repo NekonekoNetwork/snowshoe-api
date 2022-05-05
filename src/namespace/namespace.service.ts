@@ -1,9 +1,10 @@
+import type { FallbackModel } from '@app/fallback/fallback.model';
 import type {
   CreateNamespaceInput,
   UpdateNamespaceInput,
 } from '@app/namespace/namespace.dto';
 import type { NamespaceModel } from '@app/namespace/namespace.model';
-import type { PrismaService } from '@app/prisma/prisma.service';
+import { PrismaService } from '@app/prisma/prisma.service';
 import type { ServerModel } from '@app/server/server.model';
 import type { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
 import { Injectable } from '@nestjs/common';
@@ -21,7 +22,7 @@ export class NamespaceService {
   ): Promise<NamespaceModel> {
     return this.prisma.namespace.create({
       data: {
-        ...payload,
+        name: payload.name,
       },
     });
   }
@@ -70,6 +71,16 @@ export class NamespaceService {
         },
       })
       .servers();
+  }
+
+  async findFallbacks(id: string): Promise<FallbackModel[]> {
+    return this.prisma.namespace
+      .findUnique({
+        where: {
+          id,
+        },
+      })
+      .fallbacks();
   }
 
   async findVirtualHosts(id: string): Promise<VirtualHostModel[]> {

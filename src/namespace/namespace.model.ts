@@ -1,3 +1,4 @@
+import { FallbackModel } from '@app/fallback/fallback.model';
 import { ServerModel } from '@app/server/server.model';
 import { BaseModel } from '@app/shared/base.model';
 import { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
@@ -10,7 +11,11 @@ export class NamespaceModel extends BaseModel {
 
   @Field(() => [ServerModel])
   servers?: ServerModel[];
-
+  @Field(() => [FallbackModel])
+  fallbacks?: FallbackModel[];
   @Field(() => [VirtualHostModel])
   virtualHosts?: VirtualHostModel[];
+
+  @Field(() => FallbackModel, { nullable: true })
+  fallback?: FallbackModel;
 }

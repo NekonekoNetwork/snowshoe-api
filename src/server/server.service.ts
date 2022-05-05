@@ -1,5 +1,5 @@
 import type { NamespaceModel } from '@app/namespace/namespace.model';
-import type { PrismaService } from '@app/prisma/prisma.service';
+import { PrismaService } from '@app/prisma/prisma.service';
 import type { ServerModel } from '@app/server/server.model';
 import { Injectable } from '@nestjs/common';
 

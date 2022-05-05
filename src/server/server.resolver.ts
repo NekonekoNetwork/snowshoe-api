@@ -1,6 +1,6 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
 import { ServerModel } from '@app/server/server.model';
-import type { ServerService } from '@app/server/server.service';
+import { ServerService } from '@app/server/server.service';
 import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => ServerModel)

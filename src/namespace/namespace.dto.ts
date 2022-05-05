@@ -2,7 +2,7 @@ import { Field, InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateNamespaceInput {
-  @Field()
+  @Field(() => String)
   name!: string;
 }
 
