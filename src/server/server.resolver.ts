@@ -1,7 +1,15 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
+import { CreateServerInput } from '@app/server/server.dto';
 import { ServerModel } from '@app/server/server.model';
 import { ServerService } from '@app/server/server.service';
-import { Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 
 @Resolver(() => ServerModel)
 export class ServerResolver {
@@ -10,6 +18,24 @@ export class ServerResolver {
   @Query(() => [ServerModel])
   async servers(): Promise<ServerModel[]> {
     return this.serverService.findServers();
+  }
+
+  @Mutation(() => ServerModel)
+  async createServer(
+    @Args('payload') payload: CreateServerInput,
+  ): Promise<ServerModel> {
+    return this.serverService.createServer(payload);
+  }
+
+  async updateServer(
+    @Args('id') id: string,
+    payload: CreateServerInput,
+  ): Promise<ServerModel> {
+    return this.serverService.updateServer(id, payload);
+  }
+
+  async deleteServer(@Args('id') id: string): Promise<ServerModel> {
+    return this.serverService.deleteServer(id);
   }
 
   @ResolveField(() => NamespaceModel)

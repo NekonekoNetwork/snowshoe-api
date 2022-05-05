@@ -1,5 +1,6 @@
 import type { NamespaceModel } from '@app/namespace/namespace.model';
 import { PrismaService } from '@app/prisma/prisma.service';
+import type { CreateServerInput } from '@app/server/server.dto';
 import type { ServerModel } from '@app/server/server.model';
 import { Injectable } from '@nestjs/common';
 
@@ -25,5 +26,35 @@ export class ServerService {
     }
 
     return namespace;
+  }
+
+  async createServer(payload: CreateServerInput): Promise<ServerModel> {
+    return this.prisma.server.create({
+      data: {
+        ...payload,
+      },
+    });
+  }
+
+  async updateServer(
+    id: string,
+    payload: CreateServerInput,
+  ): Promise<ServerModel> {
+    return this.prisma.server.update({
+      where: {
+        id,
+      },
+      data: {
+        ...payload,
+      },
+    });
+  }
+
+  async deleteServer(id: string): Promise<ServerModel> {
+    return this.prisma.server.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
