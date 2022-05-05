@@ -71,8 +71,8 @@ model Fallback {
   server   Server? @relation(fields: [serverId], references: [id])
   serverId String? @unique
 
-  Namespace Namespace[] @relation("FALLBACKS_NAMESPACE")
-  Server    Server[]    @relation("FALLBACKS_SERVER")
+  namespaces Namespace[] @relation("FALLBACKS_NAMESPACE")
+  servers    Server[]    @relation("FALLBACKS_SERVER")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
