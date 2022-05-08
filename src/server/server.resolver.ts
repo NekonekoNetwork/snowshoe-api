@@ -31,6 +31,7 @@ export class ServerResolver {
     return this.serverService.createServer(payload);
   }
 
+  @Mutation(() => ServerModel)
   async updateServer(
     @Args('id') id: string,
     payload: CreateServerInput,
@@ -38,6 +39,7 @@ export class ServerResolver {
     return this.serverService.updateServer(id, payload);
   }
 
+  @Mutation(() => ServerModel)
   async deleteServer(@Args('id') id: string): Promise<ServerModel> {
     return this.serverService.deleteServer(id);
   }

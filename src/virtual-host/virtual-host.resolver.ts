@@ -45,6 +45,11 @@ export class VirtualHostResolver {
     return this.virtualHostService.updateVirtualHost(id, payload);
   }
 
+  @Mutation(() => VirtualHostModel)
+  async deleteVirtualHost(@Args('id') id: string): Promise<VirtualHostModel> {
+    return this.virtualHostService.deleteVirtualHost(id);
+  }
+
   @ResolveField(() => NamespaceModel)
   async namespace(
     @Parent() virtualHost: VirtualHostModel,
