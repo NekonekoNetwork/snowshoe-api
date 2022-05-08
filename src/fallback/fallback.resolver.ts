@@ -1,32 +1,28 @@
 import { FallbackModel } from '@app/fallback/fallback.model';
-import { FallbackService } from '@app/fallback/fallback.service';
 import { NamespaceModel } from '@app/namespace/namespace.model';
+import { NamespaceService } from '@app/namespace/namespace.service';
 import { ServerModel } from '@app/server/server.model';
+import { ServerService } from '@app/server/server.service';
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => FallbackModel)
 export class FallbackResolver {
-  constructor(private readonly fallbackService: FallbackService) {}
+  constructor(
+    private readonly namespaceService: NamespaceService,
+    private readonly serverService: ServerService,
+  ) {}
 
   @ResolveField(() => NamespaceModel)
   async namespace(@Parent() fallback: FallbackModel): Promise<NamespaceModel> {
-    return this.fallbackService.findNamespace(fallback.id);
+    return this.namespaceService.findNamespace(fallback.namespaceId);
   }
 
-  @ResolveField(() => ServerModel)
-  async server(@Parent() fallback: FallbackModel): Promise<ServerModel> {
-    return this.fallbackService.findServer(fallback.id);
-  }
+  @ResolveField(() => ServerModel, { nullable: true })
+  async server(@Parent() fallback: FallbackModel): Promise<ServerModel | null> {
+    if (!fallback.serverId) {
+      return null;
+    }
 
-  @ResolveField(() => [NamespaceModel])
-  async namespaces(
-    @Parent() fallback: FallbackModel,
-  ): Promise<NamespaceModel[]> {
-    return this.fallbackService.findNamespaces(fallback.id);
-  }
-
-  @ResolveField(() => [ServerModel])
-  async servers(@Parent() fallback: FallbackModel): Promise<ServerModel[]> {
-    return this.fallbackService.findServers(fallback.id);
+    return this.serverService.findServer(fallback.serverId);
   }
 }

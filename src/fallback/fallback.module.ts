@@ -1,7 +1,8 @@
 import { FallbackResolver } from '@app/fallback/fallback.resolver';
 import { FallbackService } from '@app/fallback/fallback.service';
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 
+@Global()
 @Module({
   providers: [FallbackService, FallbackResolver],
   exports: [FallbackService],

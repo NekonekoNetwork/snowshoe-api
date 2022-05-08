@@ -1,4 +1,5 @@
 import { FallbackModel } from '@app/fallback/fallback.model';
+import { FallbackService } from '@app/fallback/fallback.service';
 import {
   CreateNamespaceInput,
   UpdateNamespaceInput,
@@ -18,7 +19,10 @@ import {
 
 @Resolver(() => NamespaceModel)
 export class NamespaceResolver {
-  constructor(private readonly namespaceService: NamespaceService) {}
+  constructor(
+    private readonly namespaceService: NamespaceService,
+    private readonly fallbackService: FallbackService,
+  ) {}
 
   @Query(() => [NamespaceModel])
   async namespaces(): Promise<NamespaceModel[]> {
@@ -40,7 +44,7 @@ export class NamespaceResolver {
   @Mutation(() => NamespaceModel)
   async updateNamespace(
     @Args('id') id: string,
-    payload: UpdateNamespaceInput,
+    @Args('payload') payload: UpdateNamespaceInput,
   ): Promise<NamespaceModel> {
     return this.namespaceService.updateNamespace(id, payload);
   }
@@ -48,6 +52,13 @@ export class NamespaceResolver {
   @Mutation(() => NamespaceModel)
   async deleteNamespace(@Args('id') id: string): Promise<NamespaceModel> {
     return this.namespaceService.deleteNamespace(id);
+  }
+
+  @ResolveField(() => FallbackModel, { nullable: true })
+  async fallback(
+    @Parent() namespace: NamespaceModel,
+  ): Promise<FallbackModel | null> {
+    return this.fallbackService.findFromNamespace(namespace.id);
   }
 
   @ResolveField(() => [ServerModel])

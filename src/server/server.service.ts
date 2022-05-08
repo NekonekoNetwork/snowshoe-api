@@ -12,6 +12,23 @@ export class ServerService {
     return this.prisma.server.findMany();
   }
 
+  async findServersFromNamespace(namespaceId: string): Promise<ServerModel[]> {
+    return this.prisma.server.findMany({
+      where: {
+        namespaceId,
+      },
+    });
+  }
+
+  async findServer(id: string): Promise<ServerModel> {
+    return this.prisma.server.findUnique({
+      where: {
+        id,
+      },
+      rejectOnNotFound: true,
+    });
+  }
+
   async findNamespace(id: string): Promise<NamespaceModel> {
     const namespace = await this.prisma.server
       .findUnique({

@@ -1,3 +1,4 @@
+import { FallbackInput } from '@app/fallback/fallback.dto';
 import { Field, InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()
@@ -7,4 +8,7 @@ export class CreateNamespaceInput {
 }
 
 @InputType()
-export class UpdateNamespaceInput extends PartialType(CreateNamespaceInput) {}
+export class UpdateNamespaceInput extends PartialType(CreateNamespaceInput) {
+  @Field(() => FallbackInput, { nullable: true })
+  fallback?: FallbackInput;
+}

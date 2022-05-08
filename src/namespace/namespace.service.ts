@@ -36,7 +36,23 @@ export class NamespaceService {
         id,
       },
       data: {
-        ...payload,
+        name: payload.name,
+        fallback: {
+          connectOrCreate: {
+            where: {
+              namespaceId: payload.fallback?.namespaceId,
+              serverId: payload.fallback?.serverId,
+            },
+            create: {
+              namespaces: {
+                connect: {
+                  id: payload.fallback?.namespaceId,
+                },
+              },
+              serverId: payload.fallback?.serverId,
+            },
+          },
+        },
       },
     });
   }
@@ -50,17 +66,16 @@ export class NamespaceService {
   }
 
   async findNamespace(id: string): Promise<NamespaceModel> {
-    const namespace = await this.prisma.namespace.findUnique({
+    return this.prisma.namespace.findUnique({
       where: {
         id,
       },
+      rejectOnNotFound: true,
     });
+  }
 
-    if (!namespace) {
-      throw new Error(`Namespace with id '${id}' not found`);
-    }
-
-    return namespace;
+  async findFallback(id: string): Promise<FallbackModel | null> {
+    return this.prisma.namespace.findUnique({ where: { id } }).fallback();
   }
 
   async findServers(id: string): Promise<ServerModel[]> {
