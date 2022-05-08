@@ -1,16 +1,17 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
+import { BaseModel } from '@app/shared/base.model';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { PingPassthrough } from '@prisma/client';
+import { PingPassthrough, Server } from '@prisma/client';
 
 registerEnumType(PingPassthrough, {
   name: 'PingPassthrough',
 });
 
 @ObjectType('Server')
-export class ServerModel {
-  @Field(() => String)
-  id!: string;
-  @Field(() => NamespaceModel)
+export class ServerModel extends BaseModel implements Server {
+  @Field(() => String, { nullable: false })
+  namespaceId!: string;
+  @Field(() => NamespaceModel, { nullable: false })
   namespace?: NamespaceModel;
 
   @Field(() => String)
@@ -22,7 +23,7 @@ export class ServerModel {
   port!: number;
 
   @Field(() => String, { nullable: true })
-  motd?: string | null;
+  motd!: string | null;
   @Field(() => PingPassthrough)
   pingPassthrough!: PingPassthrough;
 }

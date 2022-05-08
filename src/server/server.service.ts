@@ -1,4 +1,3 @@
-import type { NamespaceModel } from '@app/namespace/namespace.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import type { CreateServerInput } from '@app/server/server.dto';
 import type { ServerModel } from '@app/server/server.model';
@@ -27,22 +26,6 @@ export class ServerService {
       },
       rejectOnNotFound: true,
     });
-  }
-
-  async findNamespace(id: string): Promise<NamespaceModel> {
-    const namespace = await this.prisma.server
-      .findUnique({
-        where: {
-          id,
-        },
-      })
-      .namespace();
-
-    if (!namespace) {
-      throw new Error(`Could not find namespace with id ${id}`);
-    }
-
-    return namespace;
   }
 
   async createServer(payload: CreateServerInput): Promise<ServerModel> {

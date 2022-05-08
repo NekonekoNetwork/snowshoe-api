@@ -1,4 +1,5 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
+import { NamespaceService } from '@app/namespace/namespace.service';
 import { CreateServerInput } from '@app/server/server.dto';
 import { ServerModel } from '@app/server/server.model';
 import { ServerService } from '@app/server/server.service';
@@ -13,7 +14,10 @@ import {
 
 @Resolver(() => ServerModel)
 export class ServerResolver {
-  constructor(private readonly serverService: ServerService) {}
+  constructor(
+    private readonly serverService: ServerService,
+    private readonly namespaceService: NamespaceService,
+  ) {}
 
   @Query(() => [ServerModel])
   async servers(): Promise<ServerModel[]> {
@@ -40,6 +44,6 @@ export class ServerResolver {
 
   @ResolveField(() => NamespaceModel)
   async namespace(@Parent() server: ServerModel): Promise<NamespaceModel> {
-    return this.serverService.findNamespace(server.id);
+    return this.namespaceService.findNamespace(server.namespaceId);
   }
 }
