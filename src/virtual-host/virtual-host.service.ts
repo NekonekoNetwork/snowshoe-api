@@ -1,5 +1,8 @@
 import { PrismaService } from '@app/prisma/prisma.service';
-import type { CreateVirtualHostInput } from '@app/virtual-host/virtual-host.dto';
+import type {
+  CreateVirtualHostInput,
+  UpdateVirtualHostInput,
+} from '@app/virtual-host/virtual-host.dto';
 import type { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
 import { Injectable } from '@nestjs/common';
 
@@ -7,7 +10,7 @@ import { Injectable } from '@nestjs/common';
 export class VirtualHostService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getVirtualHosts(): Promise<VirtualHostModel[]> {
+  async findVirtualHosts(): Promise<VirtualHostModel[]> {
     return this.prisma.virtualHost.findMany();
   }
 
@@ -30,6 +33,25 @@ export class VirtualHostService {
               },
             }
           : undefined,
+      },
+    });
+  }
+
+  async updateVirtualHost(id: string, payload: UpdateVirtualHostInput) {
+    return this.prisma.virtualHost.update({
+      where: {
+        id,
+      },
+      data: {
+        ...payload,
+      },
+    });
+  }
+
+  async deleteVirtualHost(id: string) {
+    return this.prisma.virtualHost.delete({
+      where: {
+        id,
       },
     });
   }
