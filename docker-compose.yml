@@ -9,5 +9,3 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: snowshoe
-      MYSQL_USER: snowshoe
-      MYSQL_PASSWORD: snowshoe
