@@ -20,8 +20,11 @@ export class ServerResolver {
   ) {}
 
   @Query(() => [ServerModel])
-  async servers(): Promise<ServerModel[]> {
-    return this.serverService.findServers();
+  async servers(
+    @Args('namespaceId', { nullable: true, type: () => String })
+    namespaceId: string | null,
+  ): Promise<ServerModel[]> {
+    return this.serverService.findServers(namespaceId);
   }
 
   @Mutation(() => ServerModel)

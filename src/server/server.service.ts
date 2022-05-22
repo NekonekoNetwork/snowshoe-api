@@ -7,8 +7,12 @@ import { Injectable } from '@nestjs/common';
 export class ServerService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findServers(): Promise<ServerModel[]> {
-    return this.prisma.server.findMany();
+  async findServers(namespaceId: string | null): Promise<ServerModel[]> {
+    return this.prisma.server.findMany({
+      where: {
+        namespaceId: namespaceId ?? undefined,
+      },
+    });
   }
 
   async findServersFromNamespace(namespaceId: string): Promise<ServerModel[]> {
