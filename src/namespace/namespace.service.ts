@@ -84,6 +84,7 @@ export class NamespaceService {
         where: {
           id,
         },
+        rejectOnNotFound: true,
       })
       .servers();
   }
@@ -94,6 +95,7 @@ export class NamespaceService {
         where: {
           id,
         },
+        rejectOnNotFound: true,
       })
       .fallbacks();
   }
@@ -104,6 +106,7 @@ export class NamespaceService {
         where: {
           id,
         },
+        rejectOnNotFound: true,
       })
       .virtualHosts();
   }

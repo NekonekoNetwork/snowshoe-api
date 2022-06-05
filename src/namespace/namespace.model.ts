@@ -10,11 +10,11 @@ export class NamespaceModel extends BaseModel implements Namespace {
   @Field(() => String)
   name!: string;
 
-  @Field(() => [ServerModel])
+  @Field(() => [ServerModel], { nullable: false })
   servers?: ServerModel[];
-  @Field(() => [FallbackModel])
+  @Field(() => [FallbackModel], { nullable: false })
   fallbacks?: FallbackModel[];
-  @Field(() => [VirtualHostModel])
+  @Field(() => [VirtualHostModel], { nullable: false })
   virtualHosts?: VirtualHostModel[];
 
   @Field(() => FallbackModel, { nullable: true })
