@@ -9,3 +9,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: snowshoe
+  # api:
+  #   container_name: snowshoe-api
+  #   build: .
+  #   ports:
+  #     - '4000:4000'
+  #   env_file:
+  #     - .env
