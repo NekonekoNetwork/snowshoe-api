@@ -8,7 +8,7 @@ registerEnumType(DestinationType, {
   name: 'DestinationType',
 });
 
-@ObjectType()
+@ObjectType('VirtualHost')
 export class VirtualHostModel extends BaseModel implements VirtualHost {
   @Field(() => String)
   name!: string;
