@@ -6,7 +6,10 @@ import {
   CreateVirtualHostInput,
   UpdateVirtualHostInput,
 } from '@app/virtual-host/virtual-host.dto';
-import { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
+import {
+  DestinationType,
+  VirtualHostModel,
+} from '@app/virtual-host/virtual-host.model';
 import { VirtualHostService } from '@app/virtual-host/virtual-host.service';
 import {
   Args,
@@ -48,6 +51,15 @@ export class VirtualHostResolver {
   @Mutation(() => VirtualHostModel)
   async deleteVirtualHost(@Args('id') id: string): Promise<VirtualHostModel> {
     return this.virtualHostService.deleteVirtualHost(id);
+  }
+
+  @ResolveField(() => DestinationType)
+  async type(
+    @Parent() virtualHost: VirtualHostModel,
+  ): Promise<DestinationType> {
+    return virtualHost.serverId
+      ? DestinationType.SERVER
+      : DestinationType.NAMESPACE;
   }
 
   @ResolveField(() => NamespaceModel)

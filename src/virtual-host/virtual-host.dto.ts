@@ -1,21 +1,9 @@
-import {
-  Field,
-  InputType,
-  PartialType,
-  registerEnumType,
-} from '@nestjs/graphql';
-import { DestinationType } from '@prisma/client';
-
-registerEnumType(DestinationType, {
-  name: 'DestinationType',
-});
+import { Field, InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateVirtualHostInput {
   @Field(() => String)
   name!: string;
-  @Field(() => DestinationType)
-  type!: DestinationType;
 
   @Field(() => String)
   namespaceId!: string;

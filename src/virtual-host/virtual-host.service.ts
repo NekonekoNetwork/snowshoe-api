@@ -20,7 +20,6 @@ export class VirtualHostService {
     return this.prisma.virtualHost.create({
       data: {
         name: payload.name,
-        type: payload.type,
         namespace: {
           connect: {
             id: payload.namespaceId,
