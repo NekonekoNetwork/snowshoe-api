@@ -86,12 +86,46 @@ model ServerStatus {
   server   Server @relation(fields: [serverId], references: [id])
   serverId String @unique @map("server_id")
 
-  status String
+  description String @map("description") @db.Text
+
+  versionName     String @map("version_name")
+  versionProtocol String @map("version_protocol")
+
+  playersOnline Int            @map("players_online")
+  playersMax    Int            @map("players_max")
+  players       SamplePlayer[]
+
+  modInfoType String?     @map("mod_info_type")
+  modInfos    SampleMod[]
+
+  favicon String? @map("favicon")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("server_statuses")
+}
+
+model SamplePlayer {
+  serverStatus   ServerStatus @relation(fields: [serverStatusId], references: [id])
+  serverStatusId String       @map("server_status_id")
+
+  name String @map("name")
+  id   String @map("id")
+
+  @@id([serverStatusId, id])
+  @@map("sample_players")
+}
+
+model SampleMod {
+  serverStatus   ServerStatus @relation(fields: [serverStatusId], references: [id])
+  serverStatusId String       @map("server_status_id")
+
+  name    String @map("name")
+  version String @map("version")
+
+  @@id([serverStatusId, name])
+  @@map("sample_mods")
 }
 
 model VirtualHost {
