@@ -12,7 +12,7 @@ datasource db {
 
 model Namespace {
   id   String @id @default(uuid())
-  name String @unique
+  name String @unique @map("name")
 
   servers      Server[]
   fallbacks    Fallback[]    @relation("FALLBACKS_NAMESPACE")
@@ -29,14 +29,14 @@ model Namespace {
 model Server {
   id          String    @id @default(uuid())
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
-  namespaceId String
+  namespaceId String    @map("namespace_id")
 
-  name    String
-  address String
-  port    Int
+  name    String @map("name")
+  address String @map("address")
+  port    Int    @map("port")
 
-  motd            String?
-  pingPassthrough PingPassthrough @default(NONE)
+  motd            String?         @map("motd")
+  pingPassthrough PingPassthrough @default(NONE) @map("ping_passthrough")
 
   fallbacks    Fallback[]    @relation("FALLBACKS_SERVER")
   serverStatus ServerStatus?
@@ -66,10 +66,10 @@ model Fallback {
   id String @id @default(uuid())
 
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
-  namespaceId String    @unique
+  namespaceId String    @unique @map("namespace_id")
 
   server   Server? @relation(fields: [serverId], references: [id])
-  serverId String? @unique
+  serverId String? @unique @map("server_id")
 
   namespaces Namespace[] @relation("FALLBACKS_NAMESPACE")
   servers    Server[]    @relation("FALLBACKS_SERVER")
@@ -84,7 +84,7 @@ model ServerStatus {
   id String @id @default(uuid())
 
   server   Server @relation(fields: [serverId], references: [id])
-  serverId String @unique
+  serverId String @unique @map("server_id")
 
   status String
 
@@ -97,23 +97,15 @@ model ServerStatus {
 model VirtualHost {
   id String @id @default(uuid())
 
-  name String @unique
-
-  // Distinatio
-  type DestinationType
+  name String @unique @map("name")
 
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
-  namespaceId String
+  namespaceId String    @map("namespace_id")
   server      Server?   @relation(fields: [serverId], references: [id])
-  serverId    String?
+  serverId    String?   @map("server_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   @@map("virtual_hosts")
-}
-
-enum DestinationType {
-  NAMESPACE
-  SERVER
 }
