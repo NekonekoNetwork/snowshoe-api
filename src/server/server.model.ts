@@ -1,4 +1,5 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
+import { ServerStatusModel } from '@app/server-status/server-status.model';
 import { BaseModel } from '@app/shared/base.model';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { PingPassthrough, Server } from '@prisma/client';
@@ -26,4 +27,7 @@ export class ServerModel extends BaseModel implements Server {
   motd!: string | null;
   @Field(() => PingPassthrough)
   pingPassthrough!: PingPassthrough;
+
+  @Field(() => ServerStatusModel, { nullable: true })
+  serverStatus?: ServerStatusModel | null;
 }

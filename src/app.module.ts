@@ -7,6 +7,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { FallbackModule } from './fallback/fallback.module';
+import { ServerStatusModule } from './server-status/server-status.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FallbackModule } from './fallback/fallback.module';
     NamespaceModule,
     ServerModule,
     VirtualHostModule,
+    ServerStatusModule,
   ],
 })
 export class AppModule {}
