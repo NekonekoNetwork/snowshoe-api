@@ -1,7 +1,7 @@
 import { NamespaceModel } from '@app/namespace/namespace.model';
 import { NamespaceService } from '@app/namespace/namespace.service';
 import { ServerStatusModel } from '@app/server-status/server-status.model';
-import type { ServerStatusService } from '@app/server-status/server-status.service';
+import { ServerStatusService } from '@app/server-status/server-status.service';
 import { CreateServerInput } from '@app/server/server.dto';
 import { ServerModel } from '@app/server/server.model';
 import { ServerService } from '@app/server/server.service';
