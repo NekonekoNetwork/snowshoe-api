@@ -1,21 +1,21 @@
-import {
-  SampleModModel,
-  SamplePlayerModel,
-  ServerStatusModel,
-} from '@app/server-status/server-status.model';
+import { ServerStatusModel } from '@app/server-status/server-status.model';
 import { Field, InputType, OmitType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateServerStatusSamplePlayerInput extends OmitType(
-  SamplePlayerModel,
-  ['serverStatusId', 'serverStatus'] as const,
-) {}
+export class UpdateServerStatusSamplePlayerInput {
+  @Field(() => String, { nullable: false })
+  name!: string;
+  @Field(() => String, { nullable: false })
+  id!: string;
+}
 
 @InputType()
-export class UpdateServerStatusSampleModInput extends OmitType(SampleModModel, [
-  'serverStatusId',
-  'serverStatus',
-] as const) {}
+export class UpdateServerStatusSampleModInput {
+  @Field(() => String, { nullable: false })
+  name!: string;
+  @Field(() => String, { nullable: false })
+  version!: string;
+}
 
 @InputType()
 export class UpdateServerStatusInput extends OmitType(ServerStatusModel, [

@@ -1,8 +1,9 @@
 import { ServerModel } from '@app/server/server.model';
 import { BaseModel } from '@app/shared/base.model';
-import { Field, Int } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import type { SampleMod, SamplePlayer, ServerStatus } from '@prisma/client';
 
+@ObjectType('ServerStatus')
 export class ServerStatusModel extends BaseModel implements ServerStatus {
   @Field(() => String, { nullable: false })
   serverId!: string;
@@ -33,6 +34,7 @@ export class ServerStatusModel extends BaseModel implements ServerStatus {
   favicon!: string | null;
 }
 
+@ObjectType('SamplePlayer')
 export class SamplePlayerModel implements SamplePlayer {
   @Field(() => String, { nullable: false })
   serverStatusId!: string;
@@ -45,6 +47,7 @@ export class SamplePlayerModel implements SamplePlayer {
   id!: string;
 }
 
+@ObjectType('SampleMod')
 export class SampleModModel implements SampleMod {
   @Field(() => String, { nullable: false })
   serverStatusId!: string;

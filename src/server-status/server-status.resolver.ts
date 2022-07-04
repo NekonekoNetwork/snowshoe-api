@@ -1,10 +1,10 @@
-import type { UpdateServerStatusInput } from '@app/server-status/server-status.dto';
+import { UpdateServerStatusInput } from '@app/server-status/server-status.dto';
 import {
   SampleModModel,
   SamplePlayerModel,
   ServerStatusModel,
 } from '@app/server-status/server-status.model';
-import type { ServerStatusService } from '@app/server-status/server-status.service';
+import { ServerStatusService } from '@app/server-status/server-status.service';
 
 import {
   Args,

@@ -1,15 +1,16 @@
+import { PrismaService } from '@app/prisma/prisma.service';
 import type { UpdateServerStatusInput } from '@app/server-status/server-status.dto';
 import type {
   SampleModModel,
   SamplePlayerModel,
   ServerStatusModel,
 } from '@app/server-status/server-status.model';
+
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class ServerStatusService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async findServerStatus(serverId: string): Promise<ServerStatusModel | null> {
     const serverStatus = await this.prisma.serverStatus.findUnique({
