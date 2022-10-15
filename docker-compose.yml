@@ -2,17 +2,9 @@ version: '3.9'
 
 services:
   mariadb:
-    container_name: snowshoe-db
-    image: mariadb:10.8
+    image: mariadb:10.9
     ports:
       - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: snowshoe
-  # api:
-  #   container_name: snowshoe-api
-  #   build: .
-  #   ports:
-  #     - '4000:4000'
-  #   env_file:
-  #     - .env
