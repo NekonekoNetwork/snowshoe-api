@@ -22,9 +22,17 @@
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "GitHub.copilot",
+    "codezombiech.gitignore",
+    "eamodio.gitlens",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "MS-CEINTL.vscode-language-pack-ja",
     "esbenp.prettier-vscode",
-    "prisma.prisma",
-    "GraphQL.vscode-graphql"
+    "ms-azuretools.vscode-docker",
+    "Prisma.prisma",
+    "gamunu.vscode-yarn"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
