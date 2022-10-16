@@ -66,11 +66,10 @@ export class NamespaceService {
   }
 
   async findNamespace(id: string): Promise<NamespaceModel> {
-    return this.prisma.namespace.findUnique({
+    return this.prisma.namespace.findUniqueOrThrow({
       where: {
         id,
       },
-      rejectOnNotFound: true,
     });
   }
 
