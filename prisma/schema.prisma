@@ -14,14 +14,15 @@ model Namespace {
   id   String @id @default(uuid())
   name String @unique @map("name")
 
-  servers      Server[]
-  fallbacks    Fallback[]    @relation("FALLBACKS_NAMESPACE")
-  virtualHosts VirtualHost[]
+  servers   Server[]
+  fallbacks Fallback[] @relation("FALLBACKS_NAMESPACE")
 
   fallback Fallback?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  destinations Destination[]
 
   @@map("namespaces")
 }
@@ -40,12 +41,13 @@ model Server {
 
   fallbacks    Fallback[]    @relation("FALLBACKS_SERVER")
   serverStatus ServerStatus?
-  virtualHosts VirtualHost[]
 
   fallback Fallback?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  destinations Destination[]
 
   @@unique([namespaceId, name])
   @@map("servers")
@@ -133,6 +135,19 @@ model VirtualHost {
 
   name String @unique @map("name")
 
+  destinations Destination[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("virtual_hosts")
+}
+
+model Destination {
+  id String @id @default(uuid())
+
+  type DestinationType @map("type")
+
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
   namespaceId String    @map("namespace_id")
   server      Server?   @relation(fields: [serverId], references: [id])
@@ -141,5 +156,12 @@ model VirtualHost {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
-  @@map("virtual_hosts")
+  virtualHosts VirtualHost[]
+
+  @@map("destinations")
+}
+
+enum DestinationType {
+  NAMESPACE
+  SERVER
 }
