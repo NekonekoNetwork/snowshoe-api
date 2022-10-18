@@ -1,13 +1,13 @@
-import { NamespaceModule } from '@app/namespace/namespace.module';
+import { FallbackModule } from '@app/common/fallback/fallback.module';
+import { NamespaceModule } from '@app/common/namespace/namespace.module';
+import { ServerStatusModule } from '@app/common/server-status/server-status.module';
+import { ServerModule } from '@app/common/server/server.module';
+// import { VirtualHostModule } from '@app/common/virtual-host/virtual-host.module';
 import { PrismaModule } from '@app/prisma/prisma.module';
-import { ServerModule } from '@app/server/server.module';
-import { VirtualHostModule } from '@app/virtual-host/virtual-host.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { FallbackModule } from './fallback/fallback.module';
-import { ServerStatusModule } from './server-status/server-status.module';
 
 @Module({
   imports: [
@@ -18,11 +18,11 @@ import { ServerStatusModule } from './server-status/server-status.module';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    FallbackModule,
     NamespaceModule,
     ServerModule,
-    VirtualHostModule,
     ServerStatusModule,
+    // VirtualHostModule,
+    FallbackModule,
   ],
 })
 export class AppModule {}

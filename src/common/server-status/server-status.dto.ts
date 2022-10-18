@@ -1,4 +1,4 @@
-import { ServerStatusModel } from '@app/server-status/server-status.model';
+import { ServerStatusModel } from '@app/common/server-status/server-status.model';
 import { Field, InputType, OmitType } from '@nestjs/graphql';
 
 @InputType()

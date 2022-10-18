@@ -1,6 +1,6 @@
-import { NamespaceModel } from '@app/namespace/namespace.model';
-import { ServerModel } from '@app/server/server.model';
-import { BaseModel } from '@app/shared/base.model';
+import { NamespaceModel } from '@app/common/namespace/namespace.model';
+import { ServerModel } from '@app/common/server/server.model';
+import { BaseModel } from '@app/common/shared/base.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 import type { Fallback } from '@prisma/client';
 

@@ -1,4 +1,4 @@
-import type { FallbackModel } from '@app/fallback/fallback.model';
+import type { FallbackModel } from '@app/common/fallback/fallback.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 

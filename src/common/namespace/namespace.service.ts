@@ -1,12 +1,12 @@
-import type { FallbackModel } from '@app/fallback/fallback.model';
+import type { FallbackModel } from '@app/common/fallback/fallback.model';
 import type {
   CreateNamespaceInput,
   UpdateNamespaceInput,
-} from '@app/namespace/namespace.dto';
-import type { NamespaceModel } from '@app/namespace/namespace.model';
+} from '@app/common/namespace/namespace.dto';
+import type { NamespaceModel } from '@app/common/namespace/namespace.model';
+import type { ServerModel } from '@app/common/server/server.model';
+import type { VirtualHostModel } from '@app/common/virtual-host/virtual-host.model';
 import { PrismaService } from '@app/prisma/prisma.service';
-import type { ServerModel } from '@app/server/server.model';
-import type { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

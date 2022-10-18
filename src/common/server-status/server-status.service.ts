@@ -1,10 +1,10 @@
-import { PrismaService } from '@app/prisma/prisma.service';
-import type { UpdateServerStatusInput } from '@app/server-status/server-status.dto';
+import type { UpdateServerStatusInput } from '@app/common/server-status/server-status.dto';
 import type {
   SampleModModel,
   SamplePlayerModel,
   ServerStatusModel,
-} from '@app/server-status/server-status.model';
+} from '@app/common/server-status/server-status.model';
+import { PrismaService } from '@app/prisma/prisma.service';
 
 import { Injectable } from '@nestjs/common';
 

@@ -1,5 +1,5 @@
-import { ServerResolver } from '@app/server/server.resolver';
-import { ServerService } from '@app/server/server.service';
+import { ServerResolver } from '@app/common/server/server.resolver';
+import { ServerService } from '@app/common/server/server.service';
 import { Global, Module } from '@nestjs/common';
 
 @Global()

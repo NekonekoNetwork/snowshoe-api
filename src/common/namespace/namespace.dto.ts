@@ -1,4 +1,4 @@
-import { FallbackInput } from '@app/fallback/fallback.dto';
+import { FallbackInput } from '@app/common/fallback/fallback.dto';
 import { Field, InputType, PartialType } from '@nestjs/graphql';
 
 @InputType()

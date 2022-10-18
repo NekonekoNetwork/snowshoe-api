@@ -1,7 +1,7 @@
-import { FallbackModel } from '@app/fallback/fallback.model';
-import { ServerModel } from '@app/server/server.model';
-import { BaseModel } from '@app/shared/base.model';
-import { VirtualHostModel } from '@app/virtual-host/virtual-host.model';
+import { FallbackModel } from '@app/common/fallback/fallback.model';
+import { ServerModel } from '@app/common/server/server.model';
+import { BaseModel } from '@app/common/shared/base.model';
+import { VirtualHostModel } from '@app/common/virtual-host/virtual-host.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 import type { Namespace } from '@prisma/client';
 

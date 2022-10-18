@@ -1,6 +1,6 @@
-import { NamespaceModel } from '@app/namespace/namespace.model';
-import { ServerStatusModel } from '@app/server-status/server-status.model';
-import { BaseModel } from '@app/shared/base.model';
+import { NamespaceModel } from '@app/common/namespace/namespace.model';
+import { ServerStatusModel } from '@app/common/server-status/server-status.model';
+import { BaseModel } from '@app/common/shared/base.model';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { PingPassthrough, Server } from '@prisma/client';
 

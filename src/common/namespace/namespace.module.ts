@@ -1,5 +1,5 @@
-import { NamespaceResolver } from '@app/namespace/namespace.resolver';
-import { NamespaceService } from '@app/namespace/namespace.service';
+import { NamespaceResolver } from '@app/common/namespace/namespace.resolver';
+import { NamespaceService } from '@app/common/namespace/namespace.service';
 import { Global, Module } from '@nestjs/common';
 
 @Global()
