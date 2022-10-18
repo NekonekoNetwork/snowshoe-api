@@ -148,9 +148,9 @@ model Destination {
 
   type DestinationType @map("type")
 
-  namespace   Namespace @relation(fields: [namespaceId], references: [id])
+  namespace   Namespace @relation(fields: [namespaceId], references: [id], onDelete: Cascade)
   namespaceId String    @map("namespace_id")
-  server      Server?   @relation(fields: [serverId], references: [id])
+  server      Server?   @relation(fields: [serverId], references: [id], onDelete: Cascade)
   serverId    String?   @map("server_id")
 
   createdAt DateTime @default(now()) @map("created_at")
