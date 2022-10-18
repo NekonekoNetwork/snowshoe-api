@@ -1,5 +1,5 @@
-import { VirtualHostResolver } from '@app/virtual-host/virtual-host.resolver';
-import { VirtualHostService } from '@app/virtual-host/virtual-host.service';
+import { VirtualHostResolver } from '@app/common/virtual-host/resolver/virtual-host.resolver';
+import { VirtualHostService } from '@app/common/virtual-host/service/virtual-host.service';
 import { Global, Module } from '@nestjs/common';
 
 @Global()

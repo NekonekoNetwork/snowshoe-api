@@ -5,7 +5,6 @@ import type {
 } from '@app/common/namespace/namespace.dto';
 import type { NamespaceModel } from '@app/common/namespace/namespace.model';
 import type { ServerModel } from '@app/common/server/server.model';
-import type { VirtualHostModel } from '@app/common/virtual-host/virtual-host.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
@@ -97,16 +96,5 @@ export class NamespaceService {
         rejectOnNotFound: true,
       })
       .fallbacks();
-  }
-
-  async findVirtualHosts(id: string): Promise<VirtualHostModel[]> {
-    return this.prisma.namespace
-      .findUnique({
-        where: {
-          id,
-        },
-        rejectOnNotFound: true,
-      })
-      .virtualHosts();
   }
 }

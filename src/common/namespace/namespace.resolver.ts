@@ -7,7 +7,6 @@ import {
 import { NamespaceModel } from '@app/common/namespace/namespace.model';
 import { NamespaceService } from '@app/common/namespace/namespace.service';
 import { ServerModel } from '@app/common/server/server.model';
-import { VirtualHostModel } from '@app/common/virtual-host/virtual-host.model';
 import {
   Args,
   Mutation,
@@ -71,12 +70,5 @@ export class NamespaceResolver {
     @Parent() namespace: NamespaceModel,
   ): Promise<FallbackModel[]> {
     return this.namespaceService.findFallbacks(namespace.id);
-  }
-
-  @ResolveField(() => [VirtualHostModel])
-  async virtualHosts(
-    @Parent() namespace: NamespaceModel,
-  ): Promise<VirtualHostModel[]> {
-    return this.namespaceService.findVirtualHosts(namespace.id);
   }
 }
