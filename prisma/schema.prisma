@@ -11,7 +11,8 @@ datasource db {
 }
 
 model Namespace {
-  id   String @id @default(uuid())
+  id String @id @default(uuid())
+
   name String @unique @map("name")
 
   servers   Server[]
@@ -28,7 +29,8 @@ model Namespace {
 }
 
 model Server {
-  id          String    @id @default(uuid())
+  id String @id @default(uuid())
+
   namespace   Namespace @relation(fields: [namespaceId], references: [id])
   namespaceId String    @map("namespace_id")
 
