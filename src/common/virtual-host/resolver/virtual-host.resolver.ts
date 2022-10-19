@@ -1,6 +1,6 @@
 import { DestinationModel } from '@app/common/destination/model/destination.model';
 import { CreateVirtualHostInput } from '@app/common/virtual-host/dto/create-virtual-host.input';
-import type { UpdateVirtualHostInput } from '@app/common/virtual-host/dto/update-virtual-host.input';
+import { UpdateVirtualHostInput } from '@app/common/virtual-host/dto/update-virtual-host.input';
 import { VirtualHostModel } from '@app/common/virtual-host/model/virtual-host.model';
 import { VirtualHostService } from '@app/common/virtual-host/service/virtual-host.service';
 import {
