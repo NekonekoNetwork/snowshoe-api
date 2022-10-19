@@ -1,5 +1,5 @@
-import { FallbackResolver } from '@app/common/fallback/fallback.resolver';
-import { FallbackService } from '@app/common/fallback/fallback.service';
+import { FallbackResolver } from '@app/common/fallback/resolver/fallback.resolver';
+import { FallbackService } from '@app/common/fallback/service/fallback.service';
 import { Global, Module } from '@nestjs/common';
 
 @Global()

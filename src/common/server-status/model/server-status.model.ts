@@ -1,4 +1,4 @@
-import { ServerModel } from '@app/common/server/server.model';
+import { ServerModel } from '@app/common/server/model/server.model';
 import { BaseModel } from '@app/common/shared/base.model';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import type { SampleMod, SamplePlayer, ServerStatus } from '@prisma/client';

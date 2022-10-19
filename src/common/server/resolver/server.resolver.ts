@@ -1,10 +1,10 @@
-import { NamespaceModel } from '@app/common/namespace/namespace.model';
-import { NamespaceService } from '@app/common/namespace/namespace.service';
-import { ServerStatusModel } from '@app/common/server-status/server-status.model';
-import { ServerStatusService } from '@app/common/server-status/server-status.service';
-import { CreateServerInput } from '@app/common/server/server.dto';
-import { ServerModel } from '@app/common/server/server.model';
-import { ServerService } from '@app/common/server/server.service';
+import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
+import { NamespaceService } from '@app/common/namespace/service/namespace.service';
+import { ServerStatusModel } from '@app/common/server-status/model/server-status.model';
+import { ServerStatusService } from '@app/common/server-status/service/server-status.service';
+import { CreateServerInput } from '@app/common/server/dto/server.dto';
+import { ServerModel } from '@app/common/server/model/server.model';
+import { ServerService } from '@app/common/server/service/server.service';
 import {
   Args,
   Mutation,

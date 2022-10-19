@@ -1,5 +1,5 @@
-import type { CreateServerInput } from '@app/common/server/server.dto';
-import type { ServerModel } from '@app/common/server/server.model';
+import type { CreateServerInput } from '@app/common/server/dto/server.dto';
+import type { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 

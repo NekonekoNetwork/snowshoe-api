@@ -1,5 +1,5 @@
-import { NamespaceModel } from '@app/common/namespace/namespace.model';
-import { ServerModel } from '@app/common/server/server.model';
+import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
+import { ServerModel } from '@app/common/server/model/server.model';
 import { BaseModel } from '@app/common/shared/base.model';
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Destination, DestinationType } from '@prisma/client';

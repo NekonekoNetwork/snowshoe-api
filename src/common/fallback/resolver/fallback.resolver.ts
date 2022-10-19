@@ -1,8 +1,8 @@
-import { FallbackModel } from '@app/common/fallback/fallback.model';
-import { NamespaceModel } from '@app/common/namespace/namespace.model';
-import { NamespaceService } from '@app/common/namespace/namespace.service';
-import { ServerModel } from '@app/common/server/server.model';
-import { ServerService } from '@app/common/server/server.service';
+import { FallbackModel } from '@app/common/fallback/model/fallback.model';
+import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
+import { NamespaceService } from '@app/common/namespace/service/namespace.service';
+import { ServerModel } from '@app/common/server/model/server.model';
+import { ServerService } from '@app/common/server/service/server.service';
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => FallbackModel)

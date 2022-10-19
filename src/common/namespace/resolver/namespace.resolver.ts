@@ -1,12 +1,13 @@
-import { FallbackModel } from '@app/common/fallback/fallback.model';
-import { FallbackService } from '@app/common/fallback/fallback.service';
+import { FallbackModel } from '@app/common/fallback/model/fallback.model';
+import { FallbackService } from '@app/common/fallback/service/fallback.service';
 import {
   CreateNamespaceInput,
   UpdateNamespaceInput,
-} from '@app/common/namespace/namespace.dto';
-import { NamespaceModel } from '@app/common/namespace/namespace.model';
-import { NamespaceService } from '@app/common/namespace/namespace.service';
-import { ServerModel } from '@app/common/server/server.model';
+} from '@app/common/namespace/dto/namespace.dto';
+import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
+
+import { NamespaceService } from '@app/common/namespace/service/namespace.service';
+import { ServerModel } from '@app/common/server/model/server.model';
 import {
   Args,
   Mutation,
