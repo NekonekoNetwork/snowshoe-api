@@ -1,7 +1,7 @@
 import { ServerModel } from '@app/common/server/model/server.model';
 import { BaseModel } from '@app/common/shared/base.model';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import type { SampleMod, SamplePlayer, ServerStatus } from '@prisma/client';
+import { SampleMod, SamplePlayer, ServerStatus } from '@prisma/client';
 
 @ObjectType('ServerStatus')
 export class ServerStatusModel extends BaseModel implements ServerStatus {

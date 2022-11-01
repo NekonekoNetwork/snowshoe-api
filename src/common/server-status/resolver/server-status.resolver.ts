@@ -1,4 +1,4 @@
-import { UpdateServerStatusInput } from '@app/common/server-status/dto/server-status.dto';
+import { UpdateServerStatusInput } from '@app/common/server-status/dto/update-server-status.input';
 import {
   SampleModModel,
   SamplePlayerModel,

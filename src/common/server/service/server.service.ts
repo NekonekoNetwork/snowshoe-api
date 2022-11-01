@@ -1,5 +1,6 @@
-import type { CreateServerInput } from '@app/common/server/dto/server.dto';
-import type { ServerModel } from '@app/common/server/model/server.model';
+import { CreateServerInput } from '@app/common/server/dto/create-server.input';
+import { UpdateServerInput } from '@app/common/server/dto/update-server.input';
+import { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
@@ -42,7 +43,7 @@ export class ServerService {
 
   async updateServer(
     id: string,
-    payload: CreateServerInput,
+    payload: UpdateServerInput,
   ): Promise<ServerModel> {
     return this.prisma.server.update({
       where: {

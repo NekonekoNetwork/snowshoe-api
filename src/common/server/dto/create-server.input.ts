@@ -1,5 +1,9 @@
-import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
+import { Field, InputType, Int, registerEnumType } from '@nestjs/graphql';
 import { PingPassthrough } from '@prisma/client';
+
+registerEnumType(PingPassthrough, {
+  name: 'PingPassthrough',
+});
 
 @InputType()
 export class CreateServerInput {
@@ -20,6 +24,3 @@ export class CreateServerInput {
   @Field(() => PingPassthrough, { nullable: true })
   pingPassthrough?: PingPassthrough;
 }
-
-@InputType()
-export class UpdateServerInput extends PartialType(CreateServerInput) {}

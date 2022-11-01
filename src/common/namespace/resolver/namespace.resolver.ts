@@ -1,9 +1,8 @@
 import { FallbackModel } from '@app/common/fallback/model/fallback.model';
 import { FallbackService } from '@app/common/fallback/service/fallback.service';
-import {
-  CreateNamespaceInput,
-  UpdateNamespaceInput,
-} from '@app/common/namespace/dto/namespace.dto';
+import { CreateNamespaceInput } from '@app/common/namespace/dto/create-namespace.input';
+import { UpdateNamespaceInput } from '@app/common/namespace/dto/updaet-namespace.input';
+
 import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
 
 import { NamespaceService } from '@app/common/namespace/service/namespace.service';

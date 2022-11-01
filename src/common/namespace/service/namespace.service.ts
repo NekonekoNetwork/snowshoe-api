@@ -1,11 +1,10 @@
-import type { FallbackModel } from '@app/common/fallback/model/fallback.model';
-import type {
-  CreateNamespaceInput,
-  UpdateNamespaceInput,
-} from '@app/common/namespace/dto/namespace.dto';
-import type { NamespaceModel } from '@app/common/namespace/model/namespace.model';
+import { FallbackModel } from '@app/common/fallback/model/fallback.model';
+import { CreateNamespaceInput } from '@app/common/namespace/dto/create-namespace.input';
+import { UpdateNamespaceInput } from '@app/common/namespace/dto/updaet-namespace.input';
 
-import type { ServerModel } from '@app/common/server/model/server.model';
+import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
+
+import { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
@@ -37,22 +36,6 @@ export class NamespaceService {
       },
       data: {
         name: payload.name,
-        fallback: {
-          connectOrCreate: {
-            where: {
-              namespaceId: payload.fallback?.namespaceId,
-              serverId: payload.fallback?.serverId,
-            },
-            create: {
-              namespaces: {
-                connect: {
-                  id: payload.fallback?.namespaceId,
-                },
-              },
-              serverId: payload.fallback?.serverId,
-            },
-          },
-        },
       },
     });
   }

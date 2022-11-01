@@ -2,7 +2,8 @@ import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
 import { NamespaceService } from '@app/common/namespace/service/namespace.service';
 import { ServerStatusModel } from '@app/common/server-status/model/server-status.model';
 import { ServerStatusService } from '@app/common/server-status/service/server-status.service';
-import { CreateServerInput } from '@app/common/server/dto/server.dto';
+import { CreateServerInput } from '@app/common/server/dto/create-server.input';
+import { UpdateServerInput } from '@app/common/server/dto/update-server.input';
 import { ServerModel } from '@app/common/server/model/server.model';
 import { ServerService } from '@app/common/server/service/server.service';
 import {
@@ -40,7 +41,7 @@ export class ServerResolver {
   @Mutation(() => ServerModel)
   async updateServer(
     @Args('id') id: string,
-    payload: CreateServerInput,
+    payload: UpdateServerInput,
   ): Promise<ServerModel> {
     return this.serverService.updateServer(id, payload);
   }

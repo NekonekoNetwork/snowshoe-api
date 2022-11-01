@@ -1,7 +1,7 @@
-import type { DestinationModel } from '@app/common/destination/model/destination.model';
-import type { CreateVirtualHostInput } from '@app/common/virtual-host/dto/create-virtual-host.input';
-import type { UpdateVirtualHostInput } from '@app/common/virtual-host/dto/update-virtual-host.input';
-import type { VirtualHostModel } from '@app/common/virtual-host/model/virtual-host.model';
+import { DestinationModel } from '@app/common/destination/model/destination.model';
+import { CreateVirtualHostInput } from '@app/common/virtual-host/dto/create-virtual-host.input';
+import { UpdateVirtualHostInput } from '@app/common/virtual-host/dto/update-virtual-host.input';
+import { VirtualHostModel } from '@app/common/virtual-host/model/virtual-host.model';
 
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
