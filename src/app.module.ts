@@ -1,3 +1,4 @@
+import { DestinationModule } from '@app/common/destination/destination.module';
 import { FallbackModule } from '@app/common/fallback/fallback.module';
 import { NamespaceModule } from '@app/common/namespace/namespace.module';
 import { ServerStatusModule } from '@app/common/server-status/server-status.module';
@@ -18,6 +19,7 @@ import { join } from 'path';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    DestinationModule,
     NamespaceModule,
     ServerModule,
     ServerStatusModule,

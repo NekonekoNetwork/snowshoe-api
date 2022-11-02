@@ -1,3 +1,4 @@
+import { DestinationService } from '@app/common/destination/service/destination.service';
 import { FallbackModel } from '@app/common/fallback/model/fallback.model';
 import { CreateNamespaceInput } from '@app/common/namespace/dto/create-namespace.input';
 import { UpdateNamespaceInput } from '@app/common/namespace/dto/updaet-namespace.input';
@@ -6,11 +7,16 @@ import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
 
 import { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class NamespaceService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(NamespaceService.name);
+
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly destinationService: DestinationService,
+  ) {}
 
   async findNamespaces(): Promise<NamespaceModel[]> {
     return this.prisma.namespace.findMany();
@@ -19,11 +25,19 @@ export class NamespaceService {
   async createNamespace(
     payload: CreateNamespaceInput,
   ): Promise<NamespaceModel> {
-    return this.prisma.namespace.create({
+    const namespace = await this.prisma.namespace.create({
       data: {
         name: payload.name,
       },
     });
+
+    try {
+      await this.destinationService.createDestinationFromNamespace(namespace);
+    } catch (err) {
+      this.logger.error(err);
+    }
+
+    return namespace;
   }
 
   async updateNamespace(
