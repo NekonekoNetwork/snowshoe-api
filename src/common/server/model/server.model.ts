@@ -28,6 +28,8 @@ export class ServerModel extends BaseModel implements Server {
   @Field(() => PingPassthrough)
   pingPassthrough!: PingPassthrough;
 
+  @Field(() => String, { nullable: false })
+  destinationId?: string;
   @Field(() => ServerStatusModel, { nullable: true })
   serverStatus?: ServerStatusModel | null;
 }

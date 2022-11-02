@@ -4,6 +4,7 @@ import { UpdateServerInput } from '@app/common/server/dto/update-server.input';
 import { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable, Logger } from '@nestjs/common';
+import { DestinationType } from '@prisma/client';
 
 @Injectable()
 export class ServerService {
@@ -47,7 +48,10 @@ export class ServerService {
     });
 
     try {
-      await this.destinationService.createDestinationFromServer(server);
+      await this.destinationService.createDestinationFromServer({
+        namespaceId: server.namespaceId,
+        serverId: server.id,
+      });
     } catch (err) {
       this.logger.error(err);
     }
@@ -75,5 +79,35 @@ export class ServerService {
         id,
       },
     });
+  }
+
+  async findDestinationId(id: string): Promise<string> {
+    const server = await this.prisma.server.findUniqueOrThrow({
+      where: { id },
+      select: {
+        id: true,
+        namespaceId: true,
+        destinations: {
+          where: {
+            type: DestinationType.SERVER,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    const destination = server.destinations[0];
+    if (destination) {
+      return destination.id;
+    }
+
+    return this.destinationService
+      .createDestinationFromServer({
+        namespaceId: server.namespaceId,
+        serverId: server.id,
+      })
+      .then((dest) => dest.id);
   }
 }

@@ -1,5 +1,4 @@
 import { DestinationModel } from '@app/common/destination/model/destination.model';
-import { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { DestinationType } from '@prisma/client';
@@ -23,14 +22,23 @@ export class DestinationService {
     });
   }
 
-  async createDestinationFromServer(
-    server: ServerModel,
-  ): Promise<DestinationModel> {
+  async createDestinationFromServer(input: {
+    namespaceId: string;
+    serverId: string;
+  }): Promise<DestinationModel> {
     return this.prisma.destination.create({
       data: {
         type: DestinationType.SERVER,
-        namespaceId: server.namespaceId,
-        serverId: server.id,
+        namespace: {
+          connect: {
+            id: input.namespaceId,
+          },
+        },
+        server: {
+          connect: {
+            id: input.serverId,
+          },
+        },
       },
     });
   }

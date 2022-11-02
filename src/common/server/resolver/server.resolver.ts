@@ -56,6 +56,11 @@ export class ServerResolver {
     return this.namespaceService.findNamespace(server.namespaceId);
   }
 
+  @ResolveField(() => String)
+  async destinationId(@Parent() server: ServerModel): Promise<string> {
+    return this.serverService.findDestinationId(server.id);
+  }
+
   @ResolveField(() => ServerStatusModel, { nullable: true })
   async serverStatus(
     @Parent() server: ServerModel,
