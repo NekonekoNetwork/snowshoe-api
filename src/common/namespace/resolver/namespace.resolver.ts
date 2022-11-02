@@ -1,5 +1,3 @@
-import { FallbackModel } from '@app/common/fallback/model/fallback.model';
-import { FallbackService } from '@app/common/fallback/service/fallback.service';
 import { CreateNamespaceInput } from '@app/common/namespace/dto/create-namespace.input';
 import { UpdateNamespaceInput } from '@app/common/namespace/dto/updaet-namespace.input';
 
@@ -18,10 +16,7 @@ import {
 
 @Resolver(() => NamespaceModel)
 export class NamespaceResolver {
-  constructor(
-    private readonly namespaceService: NamespaceService,
-    private readonly fallbackService: FallbackService,
-  ) {}
+  constructor(private readonly namespaceService: NamespaceService) {}
 
   @Query(() => [NamespaceModel])
   async namespaces(): Promise<NamespaceModel[]> {
@@ -53,22 +48,13 @@ export class NamespaceResolver {
     return this.namespaceService.deleteNamespace(id);
   }
 
-  @ResolveField(() => FallbackModel, { nullable: true })
-  async fallback(
-    @Parent() namespace: NamespaceModel,
-  ): Promise<FallbackModel | null> {
-    return this.fallbackService.findFromNamespace(namespace.id);
+  @ResolveField(() => String)
+  async destinationId(@Parent() namespace: NamespaceModel): Promise<string> {
+    return this.namespaceService.findDestinationId(namespace.id);
   }
 
   @ResolveField(() => [ServerModel])
   async servers(@Parent() namespace: NamespaceModel): Promise<ServerModel[]> {
     return this.namespaceService.findServers(namespace.id);
-  }
-
-  @ResolveField(() => [FallbackModel])
-  async fallbacks(
-    @Parent() namespace: NamespaceModel,
-  ): Promise<FallbackModel[]> {
-    return this.namespaceService.findFallbacks(namespace.id);
   }
 }

@@ -1,5 +1,4 @@
 import { DestinationService } from '@app/common/destination/service/destination.service';
-import { FallbackModel } from '@app/common/fallback/model/fallback.model';
 import { CreateNamespaceInput } from '@app/common/namespace/dto/create-namespace.input';
 import { UpdateNamespaceInput } from '@app/common/namespace/dto/updaet-namespace.input';
 
@@ -8,6 +7,7 @@ import { NamespaceModel } from '@app/common/namespace/model/namespace.model';
 import { ServerModel } from '@app/common/server/model/server.model';
 import { PrismaService } from '@app/prisma/prisma.service';
 import { Injectable, Logger } from '@nestjs/common';
+import { DestinationType } from '@prisma/client';
 
 @Injectable()
 export class NamespaceService {
@@ -32,7 +32,9 @@ export class NamespaceService {
     });
 
     try {
-      await this.destinationService.createDestinationFromNamespace(namespace);
+      await this.destinationService.createDestinationFromNamespaceId(
+        namespace.id,
+      );
     } catch (err) {
       this.logger.error(err);
     }
@@ -70,8 +72,30 @@ export class NamespaceService {
     });
   }
 
-  async findFallback(id: string): Promise<FallbackModel | null> {
-    return this.prisma.namespace.findUnique({ where: { id } }).fallback();
+  async findDestinationId(id: string): Promise<string> {
+    const namespace = await this.prisma.namespace.findUniqueOrThrow({
+      where: { id },
+      select: {
+        id: true,
+        destinations: {
+          where: {
+            type: DestinationType.NAMESPACE,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    const destination = namespace.destinations[0];
+    if (destination) {
+      return destination.id;
+    }
+
+    return this.destinationService
+      .createDestinationFromNamespaceId(namespace.id)
+      .then((dest) => dest.id);
   }
 
   async findServers(id: string): Promise<ServerModel[]> {
@@ -83,16 +107,5 @@ export class NamespaceService {
         rejectOnNotFound: true,
       })
       .servers();
-  }
-
-  async findFallbacks(id: string): Promise<FallbackModel[]> {
-    return this.prisma.namespace
-      .findUnique({
-        where: {
-          id,
-        },
-        rejectOnNotFound: true,
-      })
-      .fallbacks();
   }
 }
